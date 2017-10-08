@@ -26,7 +26,8 @@ export class HomePage {
           .then(() => console.log('Executed SQL Creation/Opening'))
           .catch(e => console.log(e));
         db.executeSql("insert into securitySystems(systemName, systemNumber) values("+Name+", "+Number+")", {})
-          .then(() => console.log('Inserting Data into SQLite File'))
+          .then(() => db.close())
+          .then(() => console.log("Inserting data into DB and closing connection."))
           .catch(e => console.log(e));
 
       })

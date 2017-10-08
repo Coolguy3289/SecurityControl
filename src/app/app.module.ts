@@ -5,16 +5,20 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SecurityControl } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { SenderPage } from '../pages/sender/sender';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {SQLite} from "@ionic-native/sqlite";
+import {SMS} from "@ionic-native/sms";
+import {AndroidPermissions} from "@ionic-native/android-permissions";
 
 @NgModule({
   declarations: [
     SecurityControl,
     HomePage,
     ListPage,
+    SenderPage,
   ],
   imports: [
     BrowserModule,
@@ -24,13 +28,16 @@ import {SQLite} from "@ionic-native/sqlite";
   entryComponents: [
     SecurityControl,
     HomePage,
-    ListPage
+    ListPage,
+    SenderPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    SQLite
+    SQLite,
+    SMS,
+    AndroidPermissions
 
   ]
 })

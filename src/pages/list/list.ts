@@ -26,7 +26,8 @@ export class ListPage {
       this.securitySystems = [];
       if(data.rows.length > 0) {
         for(var i = 0; i < data.rows.length; i++) {
-          this.securitySystems.push({systemName: data.rows.item(i).systemName, systemNumber: data.rows.item(i).systemNumber});
+          this.securitySystems.push({systemName: data.rows.item(i).systemName, systemNumber: data.rows.item(i).systemNumber})
+            .then(() => db.close());
         }
       }
     }, (error) => {
