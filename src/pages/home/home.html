@@ -12,16 +12,16 @@
 
     <ion-item>
       <ion-label floating>System Name</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" #Name></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>System Phone Number</ion-label>
-      <ion-input type="tel"></ion-input>
+      <ion-input type="tel" #Number></ion-input>
     </ion-item>
 
   </ion-list>
   <div padding>
-    <button float (click)="SystemSubmission()">Submit</button>
+    <button float (click)="SystemSubmission(Name.value, Number.value)">Submit</button>
   </div>
 </ion-content>
