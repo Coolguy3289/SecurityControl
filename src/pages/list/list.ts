@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
-import { SQLite } from '@ionic-native/sqlite';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
 @Component({
   selector: 'page-list',
@@ -8,21 +8,21 @@ import { SQLite } from '@ionic-native/sqlite';
 })
 export class ListPage {
   public database: SQLite;
-  public securitySystems: Array<Object>;
+  public securitySystems: any;
 
   constructor(private navController: NavController, private platform: Platform) {
     this.platform.ready().then(() => {
       this.database = new SQLite();
-      this.database.openDatabase({name: "data.db", location: "default"}).then(() => {
-        this.refresh();
+      this.database.create({name: "data.db", location: "default"}).then((db: SQLiteObject) => {
+        this.refresh(db);
       }, (error) => {
         console.log("ERROR: ", error);
       });
     });
   }
 
-  public refresh() {
-    this.database.executeSql("SELECT * FROM securitySystems", []).then((data) => {
+  public refresh(db) {
+    db.executeSql("SELECT * FROM securitySystems", []).then((data) => {
       this.securitySystems = [];
       if(data.rows.length > 0) {
         for(var i = 0; i < data.rows.length; i++) {
