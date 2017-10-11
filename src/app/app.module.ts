@@ -12,6 +12,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import {SQLite} from "@ionic-native/sqlite";
 import {SMS} from "@ionic-native/sms";
 import {AndroidPermissions} from "@ionic-native/android-permissions";
+import { IonicStorageModule } from "@ionic/storage";
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {AndroidPermissions} from "@ionic-native/android-permissions";
   imports: [
     BrowserModule,
     IonicModule.forRoot(SecurityControl),
+    IonicStorageModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [

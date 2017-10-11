@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
-
+import { Storage } from "@ionic/storage";
+import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -9,29 +9,25 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, private sqlite: SQLite) {
+  constructor(public navCtrl: NavController, public storage: Storage, public alertctrl: AlertController) {
 
   }
+
+
   SystemSubmission(Name, Number){
-    console.log(Name);
-    console.log(Number);
-    this.sqlite.create({
-      name: 'data.db',
-      location: 'default'
-    })
-      .then((db: SQLiteObject) => {
-
-
-        db.executeSql('create table securitySystems(systemName VARCHAR(32), systemNumber INT(10))', {})
-          .then(() => console.log('Executed SQL Creation/Opening'))
-          .catch(e => console.log(e));
-        db.executeSql("insert into securitySystems(systemName, systemNumber) values("+Name+", "+Number+")", {})
-          .then(() => db.close())
-          .then(() => console.log("Inserting data into DB and closing connection."))
-          .catch(e => console.log(e));
-
+    console.log("SystemName is " + Name);
+    console.log("System Number is " + Number);
+    this.storage.set(Name, Number).then(() => console.log("Wrote successfully to Storage"), () => (console.log("Something broke during write!")));
+  }
+  DataCheck(){
+    this.storage.get('Name').then((val => {
+      let alert = this.alertctrl.create({
+        title: 'Data!',
+        subTitle: val,
+        buttons: ['OK']
       })
-      .catch(e => console.log(e));
+      alert.present();
+    }));
 
 
   }
